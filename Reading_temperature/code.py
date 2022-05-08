@@ -1,11 +1,17 @@
 import microcontroller
 import time
+import board
+import hd44780
 
+display = hd44780.HD44780()
+
+#temperature readout
 while True:
 	temp = microcontroller.cpu.temperature
-	print("Temp is")
-	tempC = str(round(temp)) + "° C"
+	display.write ("CPU Temp is:", 1)
+	tempC = str(round(temp)) + " C"
 	print(tempC)
-	tempF = str(round(temp * (9/5) + 32)) + "˚ F"
+	tempF = str(round(temp * (9/5) + 32)) + " F"
 	print(tempF)
+	display.write (tempC + " " + tempF, 2)
 	time.sleep(1)
